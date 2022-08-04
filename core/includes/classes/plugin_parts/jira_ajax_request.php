@@ -11,7 +11,7 @@ function jira_user_popup(){
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="booked_plus" class="form-label">Change Time</label>
+                        <label for="booked_plus" class="form-label">Change Time In Minutes</label>
                         <input type="number" class="form-control" id="booked_plus" aria-describedby="add_time">
                         <div id="add_time" class="form-text">Change user's booked time </div>
                     </div>

@@ -9,10 +9,15 @@ $query_string = $_SERVER['QUERY_STRING'];?>
 global $wpdb;
 $demo_arr = $wpdb->get_results("SELECT * FROM jira_api_logs;");
 $demo_arr2 = $wpdb->get_results("SELECT * FROM jira_manual_logs;");
+$issues_arr = $wpdb->get_results("SELECT * FROM jira_issues;");
+//echo '<pre>'; var_dump($issues_arr); echo '</pre><br>';
+//echo '<pre>'; var_dump($demo_arr2); echo '</pre><br>';
+$new_arr = array_merge($issues_arr,$demo_arr2);
+//print_r($issues_arr);
 $final_arr = array_merge($demo_arr,$demo_arr2);
 $logs_arr = [];
 
-foreach($final_arr as $item){
+foreach($new_arr as $item){
     array_push($logs_arr,(array)$item);
 }
 $date_sorted = array_column($logs_arr, 'modify_date');
@@ -35,8 +40,15 @@ $logs = array_slice($logs_arr, $offset, $logs_per_page);
         <th scope="row">Update source</th>
         <th scope="row">Updated By</th>
         <th scope="row">User Affected</th>
+        <th scope="col">Issue name</th>
+        <th scope="col">Issue ID</th>
         <th scope="row">Date and Time</th>
-        <th scope="row">Fields affected</th>
+        <th scope="row">Billable Booked Change</th>
+	<th scope="row">Nonbillable Booked Change</th>
+	<th scope="row">Billable Real Chante</th>
+	<th scope="row">Nonbillable Real Change</th>
+	<th scope="row">Filter ID</th>
+        <!--th scope="row">Fields affected</th-->
         <th scope="row">Update notice</th>
        <?php foreach($logs as $item){
            $comment = '';
@@ -50,8 +62,10 @@ $logs = array_slice($logs_arr, $offset, $logs_per_page);
            if($item['added_by']){
                $source = 'Manual';
                $updated_by = $item['added_by'];
+               $date = $item['modify_date'];
            }else{
                $source = 'API/System';
+               $date = $item['issue_date'];
            }?>
             <tr>
 
@@ -66,12 +80,24 @@ $logs = array_slice($logs_arr, $offset, $logs_per_page);
                 <td>
                     <?php echo $item['user_name'];?>
                 </td>
+                <td><?php if($item['issue_key']) echo $item['issue_key'];?></td>
+                <td><?php if($item['issue_id']) echo $item['issue_id'];?></td>
 
                 <td>
-                    <?php echo $item['modify_date'];?>
+                    <?php echo $date;?>
                 </td>
-                <td>
-                <?php if($item['billable_old_value'] != $item['billable_new_value']){
+                <td><?php if($item['booked_time_added']){
+                    echo $item['booked_time_added'];
+                }else{
+                    if($item['category'] == 0) echo $item['time_spent_rounded'];
+                }?></td>
+                <td><?php if($item['category'] == 1) echo $item['time_spent_rounded'];?></td>
+                <td><?php if($item['category'] == 0) echo $item['time_spent'];?></td>
+                <td><?php if($item['category'] == 1) echo $item['time_spent'];?></td>
+                <td><?php if($item['filter_id']) echo $item['filter_id'];?></td>
+                <!--td>
+                <?php /* 
+                if($item['billable_old_value'] != $item['billable_new_value']){
                     echo 'Billable old value:'.$item['billable_old_value'].'<br>';
                     echo 'Billable new value:'.$item['billable_new_value'].'<br>';
                 }
@@ -82,8 +108,9 @@ $logs = array_slice($logs_arr, $offset, $logs_per_page);
                 if($item['booked_time_old_value'] != $item['booked_time_new_value']){
                     echo 'Booked time old value: '.$item['booked_time_old_value'].'<br>';
                     echo 'Booked time new value: '.$item['booked_time_new_value'].'<br>';
-                }?>
-                </td>
+                }
+                */?>
+                </td-->
                 <td>
                     <?php echo $comment?>
                 </td>

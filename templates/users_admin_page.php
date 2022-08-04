@@ -57,12 +57,12 @@ if($_GET['usearch']){
 		array(
 			'key'     => 'first_name',
 			'value'   => $_GET['usearch'],
-			'compare' => '='
+			'compare' => 'LIKE'
 		),
 		array(
 			'key'     => 'last_name',
 			'value'   => $_GET['usearch'],
-			'compare' => '='
+			'compare' => 'LIKE'
 		)
 	);
 }
@@ -113,12 +113,12 @@ if($_GET['usearch']){
 		array(
 			'key'     => 'first_name',
 			'value'   => $_GET['usearch'],
-			'compare' => '='
+			'compare' => 'LIKE'
 		),
 		array(
 			'key'     => 'last_name',
 			'value'   => $_GET['usearch'],
-			'compare' => '='
+			'compare' => 'LIKE'
 		)
 	);
 }
@@ -295,7 +295,7 @@ echo '</div>';
 			<div class="modal-body">
 				<form>
 					<div class="mb-3">
-						<label for="billable_plus" class="form-label">Add Time</label>
+						<label for="billable_plus" class="form-label">Add Time In Minutes</label>
 						<input type="number" class="form-control" id="billable_plus" aria-describedby="add_time">
 						<div id="add_time" class="form-text">Add booked time to user</div>
 					</div>
