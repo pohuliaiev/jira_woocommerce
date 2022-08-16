@@ -3,16 +3,16 @@
  * Sundsits Jira Integration
  *
  * @package       SUNDSITSJI
- * @author        developmentAlina
+ * @author        Andrii Pohuliaiev
  * @version       1.0.0
  *
  * @wordpress-plugin
  * Plugin Name:   Sundsits Jira Integration
- * Plugin URI:    https://www.sundsits.de/
+ * Plugin URI:    #
  * Description:   This is some demo short description...
  * Version:       1.0.0
- * Author:        developmentAlina
- * Author URI:    https://your-author-domain.com
+ * Author:        Andrii Pohuliaiev
+ * Author URI:    #
  * Text Domain:   sundsits-jira-integration
  * Domain Path:   /languages
  */
@@ -55,5 +55,3 @@ function SUNDSITSJI() {
 }
 
 SUNDSITSJI();
-
-
